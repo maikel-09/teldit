@@ -14,5 +14,3 @@ Teldit is a simple telegram bot which can be used for downloading media using th
 	    maikel09/teldit:latest
 ```
 ---
-# teldit
-# teldit
