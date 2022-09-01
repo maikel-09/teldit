@@ -4,6 +4,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler,MessageHandler, filters
 from redvid import Downloader
 import re
+from urllib.parse import urlsplit, urlunsplit
 
 logging.basicConfig(
     format='[%(levelname)s]  %(asctime)s - %(name)s -  %(message)s',
@@ -17,7 +18,8 @@ async def redvid_download(update: Update, context: ContextTypes.DEFAULT_TYPE):
     logging.info(f'Received messsage: "{update.message.text}"')
     # extract url
     try:
-        url = re.search("(?P<url>https?://[^\s]+)", update.message.text).group("url")
+        url = urlunsplit(urlsplit(update.message.text)._replace(query="", fragment=""))
+        logging.info(f"URL to download from: {url}")
     except Exception as ex:
         logging.error(f'{ex}')
         url = None
